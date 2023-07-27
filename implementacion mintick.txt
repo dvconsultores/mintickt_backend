@@ -1,0 +1,38 @@
+-----------------------------------------------contrato marketplace ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+near delete market.mintickback.testnet mintickback.testnet
+near create-account market.mintickback.testnet --masterAccount mintickback.testnet --initialBalance 20
+
+cargo build --target wasm32-unknown-unknown --release
+near deploy --wasmFile target/wasm32-unknown-unknown/release/mintick_market.wasm --accountId market.mintickback.testnet
+
+inciar contrato market 
+near call market.musicfeast.testnet new '{"owner_id":"market.mintickback.testnet","treasury_id":"mintickback.testnet","approved_nft_contract_ids":["nft3.mintickback.testnet"],"paras_nft_contracts":["nft3.mintickback.testnet"],"current_fee":500}' --accountId market.mintickback.testnet
+
+Set transaction fee (owner only)
+near call market.mintickback.testnet set_transaction_fee '{"next_fee":500,"start_time":1669835321}' --accountId market.mintickback.testnet --depositYocto 1
+
+
+
+---------------------------------------------------contrato nft--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+near delete nft3.mintickback.testnet mintickback.testnet
+near create-account nft3.mintickback.testnet --masterAccount mintickback.testnet --initialBalance 20
+
+
+cargo build --target wasm32-unknown-unknown --release
+near deploy --wasmFile target/wasm32-unknown-unknown/release/mintick_contract.wasm --accountId nft3.mintickback.testnet
+
+
+near call nft3.mintickback.testnet new_default_meta '{"owner_id": "nft3.mintickback.testnet", "vault_id": "mintickback.testnet"}' --accountId nft3.mintickback.testnet
+
+
+near call nft3.mintickback.testnet update_tasa '{"tasa": 2.13}' --accountId nft3.mintickback.testnet
+
+near call nft3.mintickback.testnet nft_event '{"event_metadata":{"title": "primer evento", "description": "evento de prueba", "media": "https://bafybeiceqkp7hscb72jzqxsdz3o23rf7u6cwr6k3ngkn7asv4fgyp42uei.ipfs.w3s.link/Dion%20Primo%20Enter%20the%20Feast.jpeg", "copies": 100, "reference": "1"}, "price":2.13, "royalty":{"nft3.mintickback.testnet": 1000}, "royalty_buy": {"mintickback.testnet": 7000}}' --accountId nft3.mintickback.testnet --depositYocto 10910000000000000000000
+
+
+near call nft3.mintickback.testnet nft_buy '{"token_event_id": "1|1"}' --accountId nft3.mintickback.testnet --deposit 1.2
+
+near call nft3.mintickback.testnet burn_object '{"token_id": "2|1:1"}' --accountId nft3.mintickback.testnet --depositYocto 1
+

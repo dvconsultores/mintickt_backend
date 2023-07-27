@@ -1,0 +1,20 @@
+[package]
+name = "mintick-market"
+version = "0.1.0"
+authors = ["Irfianto <irfi@paras.id>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+near-sdk = "4.0.0-pre.3"
+near-contract-standards = "4.0.0"
+
+[profile.release]
+codegen-units=1
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+overflow-checks = true
